@@ -56,6 +56,8 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
     end
 
+    # Find organization by name if it is specified in the path as
+    # :organization_id
     def set_organization
       @organization = nil
       if params[:organization_id].present?
