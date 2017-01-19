@@ -3,6 +3,7 @@ require 'test_helper'
 class EventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @event = events(:one)
+    @organization = organizations(:one)
   end
 
   test "should get index" do
@@ -12,7 +13,13 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create event" do
     assert_difference('Event.count') do
-      post events_url, params: { event: {  } }, as: :json
+      post(
+        organization_events_url(organization_id: @organization.name),
+        params: {
+          event: { message: "New Event", hostname: "example-1.org" }
+        },
+        as: :json
+      )
     end
 
     assert_response 201
@@ -24,7 +31,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update event" do
-    patch event_url(@event), params: { event: {  } }, as: :json
+    patch event_url(@event), params: { event: { message: "Updated Event", hostname: "example-2.org" } }, as: :json
     assert_response 200
   end
 

@@ -12,7 +12,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create organization" do
     assert_difference('Organization.count') do
-      post organizations_url, params: { organization: {  } }, as: :json
+      post organizations_url, params: { organization: { name: "New Org" } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update organization" do
-    patch organization_url(@organization), params: { organization: {  } }, as: :json
+    patch organization_url(@organization), params: { organization: { name: "Updated Org" } }, as: :json
     assert_response 200
   end
 

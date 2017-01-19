@@ -1,9 +1,17 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
+  before_action :set_organization, only: [:index, :create]
 
   # GET /events
   def index
-    @events = Event.all
+    @events = @organization.present? ? @organization.events : Event.all
+    @events = @events.order("created_at DESC")
+
+    offset = params[:offset]
+    limit = params[:limit]
+    if offset.present? && limit.present?
+      @events = @events.offset(offset).limit(limit)
+    end
 
     render json: @events
   end
@@ -16,6 +24,10 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = Event.new(event_params)
+
+    if @organization
+      @event.organization = @organization
+    end
 
     if @event.save
       render json: @event, status: :created, location: @event
@@ -44,8 +56,15 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
     end
 
+    def set_organization
+      @organization = nil
+      if params[:organization_id].present?
+        @organization = Organization.find_by_name(params[:organization_id])
+      end
+    end
+
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.fetch(:event, {})
+      params.require(:event).permit(:message, :hostname)
     end
 end
