@@ -57,8 +57,12 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy organization" do
+    event_count = @organization.events.count
+    assert(event_count > 0)
     assert_difference('Organization.count', -1) do
-      delete organization_url(@organization), as: :json
+      assert_difference('Event.count', -event_count) do
+        delete organization_url(@organization), as: :json
+      end
     end
 
     assert_response 204
