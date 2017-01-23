@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119200543) do
+ActiveRecord::Schema.define(version: 20170123071027) do
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "organization_id", null: false
     t.string   "message",         null: false
     t.string   "hostname",        null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "timestamp",       null: false
+    t.index ["hostname"], name: "index_events_on_hostname", using: :btree
     t.index ["organization_id"], name: "index_events_on_organization_id", using: :btree
+    t.index ["timestamp"], name: "index_events_on_timestamp", using: :btree
   end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

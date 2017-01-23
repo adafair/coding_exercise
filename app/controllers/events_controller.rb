@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   # GET /events
   def index
     @events = @organization.present? ? @organization.events : Event.all
-    @events = @events.order("created_at DESC")
+    @events = @events.order("timestamp DESC")
 
     if params[:offset].present?
       @events = @events.offset(params[:offset])
@@ -73,6 +73,6 @@ class EventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:message, :hostname)
+      params.require(:event).permit(:message, :hostname, :timestamp)
     end
 end

@@ -2,13 +2,16 @@ one:
   organization_id: 1
   message: event one
   hostname: example-one.org
+  timestamp: <%= DateTime.now %>
 two:
   organization_id: 2
   message: event two
   hostname: example-two.org
+  timestamp: <%= DateTime.now %>
 <% 100.times do |n| %>
 extra_<%= n %>:
   organization_id: 1
   message: extra event <%= n %>
   hostname: extra-example.org
+  timestamp: <%= DateTime.now %>
 <% end %>
