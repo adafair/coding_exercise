@@ -60,6 +60,9 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
+      if @event.nil?
+        render json: {errors: ["not_found"]}, status: :not_found
+      end
     end
 
     # Find organization by name if it is specified in the path as
@@ -68,6 +71,9 @@ class EventsController < ApplicationController
       @organization = nil
       if params[:organization_id].present?
         @organization = Organization.find_by_name(params[:organization_id])
+        if @organization.nil?
+          render json: {errors: ["not_found"]}, status: :not_found
+        end
       end
     end
 

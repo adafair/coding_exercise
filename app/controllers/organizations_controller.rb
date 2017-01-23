@@ -39,9 +39,14 @@ class OrganizationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Find organization by name if it is specified in the path as
+    # :organization_id
     def set_organization
-      @organization = Organization.find(params[:id])
+      @organization = Organization.find_by_name(params[:id])
+
+      if @organization.nil?
+        render json: {errors: ["not_found"]}, status: :not_found
+      end
     end
 
     # Only allow a trusted parameter "white list" through.
