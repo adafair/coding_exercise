@@ -21,8 +21,8 @@ rvm use 2.2.3
 Next, use your terminal to navigate to the directory you wish to store this project, then clone it using git:
 
 ```
-git clone ...
-cd ...
+git clone https://github.com/adafair/coding_exercise
+cd coding_exercise
 ```
 
 Once you're in the project directory, you can install the required gems using bundler:
