@@ -6,3 +6,9 @@ two:
   organization_id: 2
   message: event two
   hostname: example-two.org
+<% 100.times do |n| %>
+extra_<%= n %>:
+  organization_id: 1
+  message: extra event <%= n %>
+  hostname: extra-example.org
+<% end %>

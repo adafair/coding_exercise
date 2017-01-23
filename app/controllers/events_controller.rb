@@ -7,10 +7,16 @@ class EventsController < ApplicationController
     @events = @organization.present? ? @organization.events : Event.all
     @events = @events.order("created_at DESC")
 
-    offset = params[:offset]
-    limit = params[:limit]
-    if offset.present? && limit.present?
-      @events = @events.offset(offset).limit(limit)
+    if params[:offset].present?
+      @events = @events.offset(params[:offset])
+    end
+
+    if params[:limit].present?
+      @events = @events.limit(params[:limit])
+    end
+
+    if params[:hostname].present?
+      @events = @events.where(hostname: params[:hostname])
     end
 
     render json: @events
