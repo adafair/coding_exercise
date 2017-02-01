@@ -17,3 +17,14 @@
     )
   end
 end
+
+10.times do |x|
+  org = Organization.create(name: "foreign-Test Org #{x}")
+  50.times do |y|
+    org.events.create(
+      message: "foreign-Test event #{y} for #{org.name}",
+      hostname: "foreign-org-#{x}-host-#{(y % 2) + 1}.co.uk", # alternates between host 1 and 2
+      timestamp: DateTime.now
+    )
+  end
+end

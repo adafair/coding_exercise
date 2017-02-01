@@ -15,3 +15,23 @@ extra_<%= n %>:
   hostname: extra-example.org
   timestamp: <%= DateTime.now %>
 <% end %>
+
+
+<%
+  dom_tlds = ["com", "net", "org", "gov", "edu"]
+  for_tlds = ["co.uk", "co.jp", "ly"]
+%>
+<% 100.times do |n| %>
+domestic_<%= n %>:
+  organization_id: 3
+  message: domestic event <%= n %>
+  hostname: domestic-example.<%= dom_tlds[n % dom_tlds.length] %>
+  timestamp: <%= DateTime.now %>
+<% end %>
+<% 100.times do |n| %>
+foreign_<%= n %>:
+  organization_id: 4
+  message: foreign event <%= n %>
+  hostname: foreign-example.<%= for_tlds[n % for_tlds.length] %>
+  timestamp: <%= DateTime.now %>
+<% end %>

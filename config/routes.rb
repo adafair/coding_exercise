@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :organizations do
     resources :events, only: [:index, :create]
   end
+
+  resources :foreign_organizations, only: [:index]
 end
